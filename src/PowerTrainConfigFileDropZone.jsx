@@ -121,7 +121,8 @@ const PowerTrainConfigFileDropZone =()=>{
                 "battery_voltage" : parseFloat(temp_parsed_csv[batteryCounter][14]),
                 "battery_current": parseFloat(temp_parsed_csv[batteryCounter][15]),
                 "battery_max_c_rate":parseFloat (temp_parsed_csv[batteryCounter][16]),
-                "battery_charge_rate": parseFloat(temp_parsed_csv[batteryCounter][17]) * parseFloat(temp_parsed_csv[batteryCounter][17])
+                "battery_charge_rate": parseFloat(temp_parsed_csv[batteryCounter][17]) * parseFloat(temp_parsed_csv[batteryCounter][17]),
+                "battery_max_charge_power" :  parseFloat(temp_parsed_csv[batteryCounter][14]) * parseFloat(temp_parsed_csv[batteryCounter][15])
             }
             temp_battery_container.push(temp_battery_obj)
             batteryCounter++
