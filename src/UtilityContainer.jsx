@@ -10,6 +10,33 @@ const UtilityContainer =()=>{
     const [BatteryContext, setBatteryListContext] = useContext(BatteryObjectListContext)
     const [AltFuelGenContex, setAltFuelGenContext] = useContext(AltFuelEngineContext)
     const [DieselGenContext, setDieselGenContext] = useContext(DieselEngineContext)
+    const [AllCombinations, setAllCombinations] = useState()
+    function cartesianProduct(arrays) {
+        return arrays.reduce(
+            (acc, curr) => acc.flatMap(a => curr.map(b => [...a, b])),
+            [[]]
+        )
+    }
+    function buildCombinations(dieselEngines, methEngines, batteries) {
+        const dieselChoices   = dieselEngines.flatMap(d => dieselCounts.map(c => ({ diesel: d, dieselCount: c })));
+        const methanolChoices = methEngines.flatMap(m => methanolCounts.map(c => ({ meth: m, methCount: c })));
+        const batteryChoices  = batteries.flatMap(b => batteryCounts.map(c => ({ battery: b, batteryCount: c })));
+
+        // Cartesian product across the 3 categories
+        const combos = cartesianProduct([dieselChoices, methanolChoices, batteryChoices]);
+
+        // Reformat into your desired shape
+        return combos.map(([d, m, b]) => ({
+            Diesel_Engine: d.diesel,
+            Diesel_Engine_Count: d.dieselCount,
+            Meth_Engine: m.meth,
+            Meth_Count: m.methCount,
+            Battery: b.battery,
+            Battery_Count: b.batteryCount,
+        }))
+    }
+
+
     
     const loadModel = () =>{
         let modelName
@@ -23,7 +50,7 @@ const UtilityContainer =()=>{
         }).then(
             response=>{
                 let temp = response.data.status
-                
+
             }
         )
 
