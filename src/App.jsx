@@ -18,14 +18,15 @@ function App() {
   const [altFuelGenList, setAltFuelGenList] = useState([])
   const [dutyCycleContext , setDutyCycleContext] = useState([])
   const [maxPowerDemandContext, setMaxPowerDemandContext] = useState(0)
+  const [resultGross, setResultGross] = useState([])
   return (
     <div>
       <BatteryObjectListContext.Provider value={[batteryObjectList, setBatteryObjList]}>
-        <AltFuelEngineContext.Provider value ={[dieselGenList, setDieselGenList]}>
-          <DieselEngineContext.Provider value = {[altFuelGenList, setAltFuelGenList]}>
+        <AltFuelEngineContext.Provider value ={[altFuelGenList, setAltFuelGenList]}>
+          <DieselEngineContext.Provider value = {[dieselGenList, setDieselGenList]}>
             <DutyCycleContext.Provider value = {[dutyCycleContext, setDutyCycleContext]}>
              <MaxPowerDemandContext.Provider value = {[maxPowerDemandContext, setMaxPowerDemandContext]}>
-              <SimulationResultContext.Provider>
+              <SimulationResultContext.Provider value = {[resultGross, setResultGross]}>
                     <ModelInputZone></ModelInputZone>
                     <DutyCycleDropZone></DutyCycleDropZone>
                     <PowerTrainConfigFileDropZone></PowerTrainConfigFileDropZone>

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import Papa from  "papaparse"
+import {BatteryObjectListContext, AltFuelEngineContext, DieselEngineContext} from "./App.jsx"
 /**
  * Handles Reading CSV
  * Pasring the Component Object 
@@ -11,10 +12,14 @@ import Papa from  "papaparse"
 
 const PowerTrainConfigFileDropZone =()=>{
     const [pwrtrainConfigName, setPwrConfigTrainName] = useState("")
-    const [dieselEngineList, setDieselEngineList]  = useState([])
+    const [dieselEngineList, setDieselEngineList]  = useState([])  
     const [altFuelEngineList, setAltFuelEngineList] = useState([])
     const [batteryList, setBatteryList] = useState([])
     const [pasrsedCSV, setParsedCSV] = useState([])
+    const [BatteryContext, setBatteryListContext] = useContext(BatteryObjectListContext)
+    const [AltFuelGenContex, setAltFuelGenContext] = useContext(AltFuelEngineContext)
+    const [DieselGenContext, setDieselGenContext] = useContext(DieselEngineContext)
+    
     const onDrop = useCallback(
         (droppedFile)=>{
             const file = droppedFile[0]
@@ -95,6 +100,9 @@ const PowerTrainConfigFileDropZone =()=>{
         /* Engine Extraction Ends, Set State for Diesel/Methanol Engine Container */
         setDieselEngineList(temp_die_eng_container)
         setAltFuelEngineList(temp_alt_eng_container)
+        setDieselGenContext(temp_die_eng_container)
+        setAltFuelGenContext(temp_alt_eng_container)
+        
     }
     const extractAllBattery = async (csvFile)=>{
         /*Prepare Battery Containers */
@@ -120,6 +128,9 @@ const PowerTrainConfigFileDropZone =()=>{
         }
         /*Send the container to update the state */
         setBatteryList(temp_battery_container)
+        /*Send the container as a globle context */
+        setBatteryListContext(temp_battery_container)
+          
     }
     return (
         <div className="power-train-config-file-dropzone-container">

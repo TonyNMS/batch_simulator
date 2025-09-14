@@ -1,12 +1,15 @@
-import React, { useState, useCallback }  from "react"
+import React, { useState, useCallback, useContext }  from "react"
 import Dropzone, { useDropzone } from "react-dropzone";
 import Pap from "papaparse"
+import { DutyCycleContext, DutyCycleContext, MaxPowerDemandContext } from "./App";
 /**
  * 
  * @returns Parsed Duty Cycle String, Max Power Demand 
  */
 const  DutyCycleDropZone =()=>{
-    const  [dutyCycleName, setDutyCycleName] = useState("");
+    const  [dutyCycleName, setDutyCycleName] = useState("")
+    const  [MaxPwrContext, setMaxPowerContext] = useContext(MaxPowerDemandContext)  
+    const  [DCContext, setDutyCycleContext] = useContext(DutyCycleContext)
     const onDrop = useCallback(
         (droppedFile)=>{
             const file = droppedFile[0]
@@ -52,8 +55,10 @@ const  DutyCycleDropZone =()=>{
             .filter(v => v !== "" && v != null)  
             .map(Number);                
 
-        const maxPower = Math.max(...colValues);
+        const maxPower = Math.max(...colValues) * 1000// assume the CSV is using KW
         /*Update the gloabl context*/
+        setDutyCycleContext(temp_dutyCycle)
+        setMaxPowerContext(maxPower)
         
     }
 
