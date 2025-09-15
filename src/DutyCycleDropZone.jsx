@@ -1,10 +1,10 @@
 import React, { useState, useCallback, useContext }  from "react"
 import Dropzone, { useDropzone } from "react-dropzone";
 import Pap from "papaparse"
-import { DutyCycleContext, DutyCycleContext, MaxPowerDemandContext } from "./App";
+import { DutyCycleContext, MaxPowerDemandContext } from "./App";
 /**
  * 
- * @returns Parsed Duty Cycle String, Max Power Demand 
+ * returns Parsed Duty Cycle String, Max Power Demand 
  */
 const  DutyCycleDropZone =()=>{
     const  [dutyCycleName, setDutyCycleName] = useState("")
